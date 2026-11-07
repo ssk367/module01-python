@@ -1,6 +1,6 @@
 # Module 01: Python
 
-Python fundamentals exercises: functions, type hints, collections, and Git workflow, applied to manufacturing quality examples.
+Practice Python fundamentals—functions, type hints, collections, and Git—with manufacturing quality examples.
 
 ## Exercises
 
@@ -16,7 +16,7 @@ python defects.py
 
 ## Example
 
-`log_defect` builds a defect log for `count_defects`. You can also pass a list directly:
+`log_defect` builds a defect log; `count_defects` counts each defect:
 
 ```python
 count_defects(["scratch", "dent", "scratch", "scratch"])
@@ -26,6 +26,19 @@ Result:
 
 ```text
 {'scratch': 3, 'dent': 1}
+```
+
+`top_defects` returns the `n` most frequent defects (`n=3` by default):
+
+```python
+log = ["dent", "scratch", "chip", "chip", "scratch",
+    "deform", "chip", "chip", "chip", "scratch",
+    "dent", "scratch"]
+top_defects(log)
+```
+
+```text
+[('chip', 5), ('scratch', 4), ('dent', 2)]
 ```
 
 ## Requirements
