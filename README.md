@@ -1,6 +1,6 @@
-# Module 01: Python
+# Module 01: Python Fundamentals
 
-Practice Python fundamentals, functions, type hints, collections, and Git through manufacturing-quality examples.
+Python fundamentals exercises (functions, type hints, collections, testing, and Git workflow) applied to manufacturing quality problems.
 
 ## Requirements
 
@@ -9,58 +9,55 @@ Practice Python fundamentals, functions, type hints, collections, and Git throug
 ## Setup
 
 1. Create a virtual environment:
-```bash
-python -m venv .venv
-```
+
+   ```bash
+   python -m venv .venv
+   ```
 
 2. Activate it:
-```powershell
-# Windows
-.venv\Scripts\activate
-```
 
-```bash
-# macOS/Linux
-source .venv/bin/activate
-```
+   ```powershell
+   # Windows (PowerShell)
+   .venv\Scripts\Activate.ps1
+   ```
+
+   ```bash
+   # macOS/Linux
+   source .venv/bin/activate
+   ```
 
 3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 4. Run the tests:
-```bash
-pytest
-```
 
-## Exercises
+   ```bash
+   pytest -v
+   ```
 
-- `defects.py` — logs defects and counts occurrences for Pareto-style analysis.
+## Project structure
 
-## Run the exercise
+| File | Purpose |
+|---|---|
+| `defects.py` | Log defects and rank them for Pareto-style analysis |
+| `spc.py` | Calculate Individuals (I-MR) chart control limits using the moving-range method |
+| `test_defects.py`, `test_spc.py` | Automated tests (pytest) |
 
-From this directory, run:
+## Examples
 
-```bash
-python defects.py
-```
+### Defect analysis (`defects.py`)
 
-## Example
-
-`log_defect` builds a defect log, and `count_defects` counts each defect:
+`count_defects` counts each defect type:
 
 ```python
 count_defects(["scratch", "dent", "scratch", "scratch"])
+# {'scratch': 3, 'dent': 1}
 ```
 
-Result:
-
-```text
-{'scratch': 3, 'dent': 1}
-```
-
-`top_defects` returns the `n` most frequent defects. The default is `n=3`:
+`top_defects` returns the `n` most frequent defects (default `n=3`):
 
 ```python
 log = [
@@ -69,10 +66,18 @@ log = [
     "dent", "scratch",
 ]
 top_defects(log)
+# [('chip', 5), ('scratch', 4), ('dent', 2)]
 ```
 
-Result:
+Run the demo: `python defects.py`
 
-```text
-[('chip', 5), ('scratch', 4), ('dent', 2)]
+### SPC control limits (`spc.py`)
+
+`individual_limits` returns `(LCL, center line, UCL)`, with sigma estimated as MR̄ / d₂ (d₂ = 1.128):
+
+```python
+individual_limits([10.3, 12.1, 11.6, 13.3, 12.0])
+# (8.34, 11.86, 15.38)  ← rounded to 2 decimals
 ```
+
+Raises `ValueError` if fewer than two readings are given, since a moving range needs a pair.
