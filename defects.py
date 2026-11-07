@@ -26,10 +26,22 @@ def count_defects(log: list[str]) -> dict[str, int]:
     """
     return dict(Counter(log))
 
-# Test Functionality
+def top_defects(log: list[str], n: int = 3) -> list[tuple[str, int]]:
+    """Return the top n defects by count.
+
+    Args:
+        log (list[str]): The current defect log.
+        n (int, optional): The number of top defects to return. Defaults to 3.
+
+    Returns:
+        list[tuple[str, int]]: A list of tuples with defect name and count.
+    """
+    return Counter(log).most_common(n)
+
 if __name__ == "__main__":
-    log = log_defect("scratch")
-    log = log_defect("dent", log)
-    log = log_defect("scratch", log)
-    log = log_defect("scratch", log)
-    print(count_defects(log))
+    log = ["dent", "scratch", "chip", "chip", "scratch",
+           "deform", "chip", "chip", "chip", "scratch",
+           "dent", "scratch"]
+    print(f"Defect counts: {count_defects(log)}\n")
+    print(f"Top defects: {top_defects(log)}")
+    
